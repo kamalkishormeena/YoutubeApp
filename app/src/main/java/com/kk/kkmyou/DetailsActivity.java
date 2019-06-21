@@ -2,7 +2,6 @@ package com.kk.kkmyou;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,25 +9,30 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.core.app.ActivityCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
+import com.kk.kkmyou.adapters.CommentAdapter;
+import com.kk.kkmyou.models.YoutubeCommentModel;
+import com.kk.kkmyou.models.YoutubeDataModel;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.entity.StrictContentLengthStrategy;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,12 +47,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
-import com.kk.kkmyou.adapters.CommentAdapter;
-import com.kk.kkmyou.models.YoutubeCommentModel;
-import com.kk.kkmyou.models.YoutubeDataModel;
-import com.kk.kkmyou.R;
-import com.ms.square.android.expandabletextview.ExpandableTextView;
-
 import at.huber.youtubeExtractor.YouTubeUriExtractor;
 import at.huber.youtubeExtractor.YtFile;
 
@@ -59,7 +57,7 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
     TextView textViewName;
     TextView textViewDes;
     TextView textViewDate;
-    // ImageView imageViewIcon;
+    ImageView imageViewIcon;
     public static final String VIDEO_ID = "c2UNv38V6y4";
     private YouTubePlayerView mYoutubePlayerView = null;
     private YouTubePlayer mYoutubePlayer = null;
@@ -81,11 +79,8 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         textViewName = (TextView) findViewById(R.id.textViewName);
         textViewDes = (TextView) findViewById(R.id.textViewDes);
-        // imageViewIcon = (ImageView) findViewById(R.id.imageView);
+        //  imageViewIcon = (ImageView) findViewById(R.id.imageView);
         textViewDate = (TextView) findViewById(R.id.textViewDate);
-
-       // expandableDes=findViewById(R.id.expandable_des);
-        //expandableDes.setText(youtubeDataModel.getDescription());
 
 
         textViewName.setText(youtubeDataModel.getTitle());
@@ -94,18 +89,19 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         mList_videos = (RecyclerView) findViewById(R.id.mList_videos);
         new RequestYoutubeCommentAPI().execute();
-//        try {
-//            if (youtubeDataModel.getThumbnail() != null) {
-//                if (youtubeDataModel.getThumbnail().startsWith("http")) {
-//                    Picasso.with(this)
-//                            .load(youtubeDataModel.getThumbnail())
-//                            .into(imageViewIcon);
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    /*    try {
+            if (youtubeDataModel.getThumbnail() != null) {
+                if (youtubeDataModel.getThumbnail().startsWith("http")) {
+                    Picasso.with(this)
+                            .load(youtubeDataModel.getThumbnail())
+                            .into(imageViewIcon);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+   */
         if (!checkPermissionForReadExtertalStorage()) {
             try {
                 requestPermissionForReadExtertalStorage();
@@ -120,15 +116,15 @@ public class DetailsActivity extends YouTubeBaseActivity implements YouTubePlaye
         finish();
     }
 
-//    public void playVideo(View view) {
-//        if (mYoutubePlayer != null) {
-//            if (mYoutubePlayer.isPlaying())
-//                mYoutubePlayer.pause();
-//            else
-//                mYoutubePlayer.play();
-//        }
-//    }
-
+    /*  public void playVideo(View view) {
+          if (mYoutubePlayer != null) {
+              if (mYoutubePlayer.isPlaying())
+                  mYoutubePlayer.pause();
+              else
+                  mYoutubePlayer.play();
+          }
+      }
+  */
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
         youTubePlayer.setPlayerStateChangeListener(playerStateChangeListener);

@@ -4,13 +4,20 @@ package com.kk.kkmyou.fragments;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.kk.kkmyou.DetailsActivity;
+import com.kk.kkmyou.R;
+import com.kk.kkmyou.adapters.PlaylistPostAdapter;
+import com.kk.kkmyou.interfaces.OnItemClickListener;
+import com.kk.kkmyou.models.YoutubeDataModel;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -25,19 +32,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.kk.kkmyou.DetailsActivity;
-import com.kk.kkmyou.adapters.PlaylistPostAdapter;
-import com.kk.kkmyou.interfaces.OnItemClickListener;
-import com.kk.kkmyou.models.YoutubeDataModel;
-import com.kk.kkmyou.R;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PlayListFragment extends Fragment {
 
-    private static String GOOGLE_YOUTUBE_API_KEY = "AIzaSyBH9vDCjFzp_Z5wJkaHVCDylYJVdr-V0eE";//here you should use your api key for testing purpose you can use this api also
-    private static String PLAYLIST_ID = "PLs1Lh43FAwXRj4UsGItoV5UBsk0A_1BDl"; //here you should use your channel id for testing purpose you can use this api also
+    private static String GOOGLE_YOUTUBE_API_KEY = "AIzaSyDyNoErCyQatJnA775KqG3gml15a1_LPoY";//here you should use your api key for testing purpose you can use this api also
+    private static String PLAYLIST_ID = "PLs1Lh43FAwXRfQXmsa0MJobVHgFaV4t5Q"; //here you should use your channel id for testing purpose you can use this api also
     private static String CHANNLE_GET_URL = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=" + PLAYLIST_ID + "&maxResults=20&key=" + GOOGLE_YOUTUBE_API_KEY + "";
 
     private RecyclerView mList_videos = null;

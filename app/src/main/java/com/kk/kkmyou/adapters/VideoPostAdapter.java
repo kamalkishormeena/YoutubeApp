@@ -2,23 +2,20 @@ package com.kk.kkmyou.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kk.kkmyou.MainActivity;
 import com.kk.kkmyou.R;
+import com.kk.kkmyou.interfaces.OnItemClickListener;
+import com.kk.kkmyou.models.YoutubeDataModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import com.kk.kkmyou.interfaces.OnItemClickListener;
-import com.kk.kkmyou.models.YoutubeDataModel;
 
 /**
  * Created by mdmunirhossain on 12/18/17.
@@ -27,6 +24,7 @@ import com.kk.kkmyou.models.YoutubeDataModel;
 public class VideoPostAdapter extends RecyclerView.Adapter<VideoPostAdapter.YoutubePostHolder> {
 
     private ArrayList<YoutubeDataModel> dataSet;
+    private ArrayList<YoutubeDataModel> FilteredList;
     private Context mContext = null;
     private final OnItemClickListener listener;
 
@@ -100,4 +98,12 @@ public class VideoPostAdapter extends RecyclerView.Adapter<VideoPostAdapter.Yout
             });
         }
     }
+
+    public void setFilter(ArrayList<YoutubeDataModel> youtubeDataModels) {
+        dataSet = new ArrayList<>();
+        dataSet.addAll(youtubeDataModels);
+        notifyDataSetChanged();
+    }
+
+
 }

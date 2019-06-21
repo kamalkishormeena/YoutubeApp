@@ -1,23 +1,35 @@
 package com.kk.kkmyou;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 
-import com.kk.kkmyou.R;
+import com.google.android.material.tabs.TabLayout;
+
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.view.Menu;
+import android.view.MenuItem;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private Toolbar toolbar;
     private TabLayout tabLayout = null;
     private ViewPager viewPager = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        //  toolbar=(Toolbar)findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -48,9 +60,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.search) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
